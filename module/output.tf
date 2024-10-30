@@ -12,3 +12,4 @@ output "frontend1_id" {
   output "Backend2_id" {
   value = aws_instance.Backend2.id
   }
+  
