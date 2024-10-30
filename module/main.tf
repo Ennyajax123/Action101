@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.16"
+      version = "~> 5.73.0"
     }
   }
 
@@ -14,12 +14,12 @@ provider "aws" {
 }
 
 resource "aws_instance" "frontend1" {
-  ami          = var.ami
+  ami                    = var.ami
   instance_type          = var.instance-type
   key_name               = var.key_name
   availability_zone      = "eu-west-2a"
   vpc_security_group_ids = [aws_security_group.sg_node.id]
-  subnet_id = var.public_subnets
+  subnet_id              = var.public_subnets
 
   tags = {
     Name = "My-frontend1"
@@ -38,7 +38,7 @@ resource "aws_instance" "frontend2" {
 }
 
 resource "aws_instance" "Backend1" {
-  ami           = var.ami
+  ami                    = var.ami
   instance_type          = var.instance_type
   key_name               = var.key_name
   availability_zone      = "eu-west-2a"
