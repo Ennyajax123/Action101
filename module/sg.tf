@@ -1,5 +1,5 @@
 # Creating Security group for Frontend machine
-resource "aws_security_group" "Frontend1_sg" {
+resource "aws_security_group" frontend1_sg" {
   name = var.sg_name
   egress {
     from_port   = 0
@@ -8,20 +8,20 @@ resource "aws_security_group" "Frontend1_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.Frontend1_sg_ingress_port_1
-    to_port     = var.Frontend1_sg_ingress_port_1
+    from_port   = var.frontend1_sg_ingress_port_1
+    to_port     = var.frontend1_sg_ingress_port_1
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.Frontend1_sg_ingress_port_2
-    to_port     = var.Frontend1_sg_ingress_port_2
+    from_port   = var.frontend1_sg_ingress_port_2
+    to_port     = var.frontend1_sg_ingress_port_2
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-resource "aws_security_group" "Frontend2_sg" {
+resource "aws_security_group" "frontend2_sg" {
   name = var.sg_name
   egress {
     from_port   = 0
@@ -30,20 +30,20 @@ resource "aws_security_group" "Frontend2_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.Frontend2_sg_ingress_port_1
-    to_port     = var.Frontend2_sg_ingress_port_1
+    from_port   = var.frontend2_sg_ingress_port_1
+    to_port     = var.frontend2_sg_ingress_port_1
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.Frontend2_sg_ingress_port_2
-    to_port     = var.Frontend2_sg_ingress_port_2
+    from_port   = var.frontend2_sg_ingress_port_2
+    to_port     = var.frontend2_sg_ingress_port_2
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 # Creating Security group for Backend machine.
-resource "aws_security_group" "Backend1_sg" {
+resource "aws_security_group" "backend1_sg" {
   name = var.sg_name
   egress {
     from_port   = 0
@@ -52,20 +52,20 @@ resource "aws_security_group" "Backend1_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.Backend1_sg_ingress_port_1
-    to_port     = var.Backend1_sg_ingress_port_1
+    from_port   = var.backend1_sg_ingress_port_1
+    to_port     = var.backend1_sg_ingress_port_1
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = var.Backend1_sg_ingress_port_2
-    to_port     = var.Backend1_sg_ingress_port_2
+    from_port   = var.backend1_sg_ingress_port_2
+    to_port     = var.backend1_sg_ingress_port_2
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
-resource "aws_security_group" "Backend2_sg" {
+resource "aws_security_group" "backend2_sg" {
   name = var.sg_name
   egress {
     from_port   = 0
