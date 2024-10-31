@@ -23,6 +23,6 @@ data "terraform_remote_state" "remote"{
   backend = "s3"
   config ={
     bucket = "preciousajax123"
-    region -"eu-west-2"
+    region = "eu-west-2"
   }
 }

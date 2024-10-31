@@ -124,13 +124,13 @@ resource "aws_lb_listener" "alb_https_listener" {
         proptocol ="HTTPS"
       status_code = "HTTP_301"
     }
-  
+    }
 }
 
-create a listener on port 443 with forward action
+#create a listener on port 443 with forward action
 resource "aws_lb_listener" "alb_https_listener" {
    load_balancer_arn = aws_lb.my_load_balancer.arn
-    port = 443
+      port = 443
       protocol = "HTTPS"
       ssl_policy = "ELBSecuritypolicy.2016-08"
         default_action {
@@ -138,10 +138,11 @@ resource "aws_lb_listener" "alb_https_listener" {
 
      redirect {
         port = 443
-      proptocol ="HTTPS"
-      status_code = "HTTP_301"
+        proptocol ="HTTPS"
+        status_code = "HTTP_301"
+      }
     }
-  }
+}
 # # Creating Application load balancer
 # resource "aws_lb" "my_load_balancer" {
 #     name = "${var.my-project_name}-alb"
