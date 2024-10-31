@@ -15,14 +15,14 @@ module "vpc" {
   cidr = "192.168.0.0/16"
 
   azs             = ["eu-west-2a", "eu-west-2b"]
-  private_subnets = [var.private_subnets_1 , var.private_subnets_2]
-  public_subnets  = [var.public_subnets_1 , var.public_subnets_2]
+  private_subnets = [var.private_subnets_1, var.private_subnets_2]
+  public_subnets  = [var.public_subnets_1, var.public_subnets_2]
 
   enable_nat_gateway = false
   enable_vpn_gateway = false
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "Dev-Frontend"
   }
 }
@@ -63,17 +63,17 @@ module "vpc-1" {
   name = "my_vpc_1"
   cidr = "192.168.0.0/16"
 
-  azs             = ["eu-west-2a", "eu-west-2b"]
+  azs = ["eu-west-2a", "eu-west-2b"]
 
-   private_subnets = [var.private_subnets_1 , var.private_subnets_2]
-  public_subnets  = [var.public_subnets_1 , var.public_subnets_2]
+  private_subnets         = [var.private_subnets_1, var.private_subnets_2]
+  public_subnets          = [var.public_subnets_1, var.public_subnets_2]
   map_public_ip_on_launch = true
 
   enable_nat_gateway = false
   enable_vpn_gateway = false
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "Dev-Backend"
   }
 }
@@ -109,18 +109,18 @@ resource "aws_route_table" "private_route_table1" {
   }
 }
 resource "aws_route_table_association" "public_association_1" {
-  subnet_id    = aws_subnets.Public_Subnet_1.id
+  subnet_id      = aws_subnets.Public_Subnet_1.id
   route_table_id = aws_route_table.pub_route_table.id
 }
 resource "aws_route_table_association" "public_association_2" {
-  subnet_id    = aws_subnets.Public_Subnet_2.id
+  subnet_id      = aws_subnets.Public_Subnet_2.id
   route_table_id = aws_route_table.pub_route_table.id
 }
 resource "aws_route_table_association" "private_association_1" {
-  subnet_id    = aws_subnet.Private_Subnet_1.id
+  subnet_id      = aws_subnet.Private_Subnet_1.id
   route_table_id = aws_route_table.private_route_table.id
 }
 resource "aws_route_table_association" "private_association_2" {
-  subnet_id    = aws_subnet.Private_Subnet_2.id
+  subnet_id      = aws_subnet.Private_Subnet_2.id
   route_table_id = aws_route_table.private_route_table.id
 }
