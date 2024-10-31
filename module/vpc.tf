@@ -1,11 +1,11 @@
-variable "igw" {}
-variable "igw-1" {}
-variable "vpc" {}
-variable "vpc1" {}
-variable "public_subnets" {}
-variable "private_subnets" {}
-variable "route_table" {}
-variable "vpc_security_group" {}
+# variable "igw" {}
+# variable "igw-1" {}
+# variable "vpc" {}
+# variable "vpc1" {}
+# variable "public_subnets" {}
+# variable "private_subnets" {}
+# variable "route_table" {}
+# variable "vpc_security_group" {}
 
 # creating vpc module
 module "vpc" {
