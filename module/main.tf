@@ -59,3 +59,9 @@ resource "aws_instance" "Backend2" {
     Name = "My-Backend2"
   }
 }
+
+# Create a new load balancer attachment
+resource "aws_elb_attachment" "alb" {
+  elb      = aws_elb.bar.id
+  instance = aws_instance.node_name.id
+}

@@ -6,3 +6,4 @@ variable "ingress_port_1" {}
 variable "ingress_port_2" {}
 variable "sg_name" {}
 variable "my-machines-lb" {}
+variable "aws_elb" {}
