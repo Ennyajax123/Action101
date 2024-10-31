@@ -58,7 +58,7 @@ resource "aws_route_table" "private_route_table" {
   }
 }
 module "vpc-1" {
-  source = "terraform-aws-modules/vpc/aws"
+  source = "terraform-aws-modules/vpc-1/aws"
 
   name = "my_vpc_1"
   cidr = "192.168.0.0/16"

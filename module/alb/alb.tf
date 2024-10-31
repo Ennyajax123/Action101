@@ -55,49 +55,49 @@ resource "aws_security_group" "sg_alb" {
 }
 #Creating Target Groups for frontend1
 
-resource "aws_lb_target_group" "frontend1-tg" {
+resource "aws_alb_target_group" "frontend1-tg" {
   name     = "frontend-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id    = data.terraform_remote_state.remote.outputs.vpc_id    
 
-#   target_group_health {
-#     dns_failover {
-#       minimum_healthy_targets_count      = "1"
-#       minimum_healthy_targets_percentage = "off"
-#     }
-#     unhealthy_state_routing {
-#       minimum_healthy_targets_count      = "1"
-#       minimum_healthy_targets_percentage = "off"
-#     }
-#   }
- }
-
-#Create Listener
-
-resource "aws_alb_listener" "alb-ls" {
-  load_balancer_arn = aws_alb_listener.app-lb.arn
-  port              = "80"
-  protocol          = "HTTP"
-  #ssl_policy        = "ELBSecurityPolicy-2016-08"
-  #certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4" 
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.frontend-tg.arn 
+health check{
+    enabled   = true
+    interval  = 300
+    path = "/"
+    timeout = 60
+    matcher = 200
+    healthy_threshold = 5
+    unhealthy_threshold = 5
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
-#Add the ALB Target Group Attachment for Frontend Node 1 and Frontend Node 2
+#Create Listener
 
-resource "aws_lb_target_group_attachment" "tg_attachemnet_frontend_node_1" {
-  target_group_arn = aws_lb_target_group.frontend-tg.arn
-  target_id        = var.target1 #How to reference EC2 created by module
+resource "aws_alb_listener" "my_load_balancer_ls" {
+  load_balancer_arn = aws_alb_listener.my_load_balancer_ls.arn
+  port              = "80"
+  protocol          = "HTTP"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4" 
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.frontend1-tg.arn 
+  }
+}
+
+resource "aws_alb_target_group_attachment" "frontend1_tg_attachemnet" {
+  target_group_arn = aws_alb_target_group.frontend1.tg_attachment.arn
+  target_id        = var.target1 
   port             = 80
 }
-resource "aws_lb_target_group_attachment" "tg_attachemnet_frontend_node_2" {
-  target_group_arn = aws_lb_target_group.frontend-tg.arn
-  target_id        = var.target2  #How to reference EC2 created by module
+resource "aws_alb_target_group_attachment" "tg_attachemnet_frontend_node_2" {
+  target_group_arn = aws_alb_target_group.frontend-tg.arn
+  target_id        = var.target2  
   port             = 80
 }
 
@@ -110,72 +110,49 @@ data "terraform_remote_state" "remote" {
     region = "eu-west-2"
   }
 }
-# Creating Application load balancer
-#resource "aws_lb" "my_load_balancer" {
- #name = "${var.my-project_name}-alb"
- # internal = false
-  #load_balancer_type = "application"
-  #security_groups = [var.alb_sg_id]
-  #subnets =[var.public_subnets-1 , var.public-subnets-2 , var.public-subnets-3]
- # enable_deletion_protection = false
-  #tags = {
-   # name = "${var.my-project_name}-alb"
-  #}
 
-#}
-#
-# create target group
-#resource "aws_lb_target_group" "alb_target_group" {
- # name = "${var.my-project_name}-tg"
-  #target_type = "ip"
-  #port = 80
-  #protocol = "HTTP"
-  #vpc_id = var.vpc_id
-
-  #health check{
-   # enabled   = true
-   # interval  = 300
-   # path = "/"
-   # timeout = 60
-   # matcher = 200
-   # healthy_threshold = 5
-   # unhealthy_threshold = 5
-  #}
-  #lifecycle {
-  #  create_before_destroy = true
-  #}
-#}
 #create a listener on port 80 with forward action
-#resource "aws_lb_listener" "alb_https_listener" {
-#  load_balancer_arn = aws_lb.my_load_balancer.arn
- # port = 80
-  #protocol = "HTTP"
-  #default_action {
-   # type ="redirect"
+resource "aws_lb_listener" "alb_https_listener" {
+  load_balancer_arn = aws_lb.my_load_balancer.arn
+    port = 80
+  protocol = "HTTP"
+    default_action {
+    type ="redirect"
 
-    #redirect {
-     # port = 443
-      #proptocol ="HTTPS"
-      #status_code = "HTTP_301"
-    #}
-  #}
+      redirect {
+      port = 443
+        proptocol ="HTTPS"
+      status_code = "HTTP_301"
+    }
   
-#}
+}
 
-#create a listener on port 443 with forward action
-#resource "aws_lb_listener" "alb_https_listener" {
- # load_balancer_arn = aws_lb.my_load_balancer.arn
- # port = 443
- # protocol = "HTTPS"
- # ssl_policy = "ELBSecuritypolicy.2016-08"
- # default_action {
-  #  type ="redirect"
+create a listener on port 443 with forward action
+resource "aws_lb_listener" "alb_https_listener" {
+   load_balancer_arn = aws_lb.my_load_balancer.arn
+    port = 443
+      protocol = "HTTPS"
+      ssl_policy = "ELBSecuritypolicy.2016-08"
+        default_action {
+          type ="redirect"
 
-   # redirect {
-    #  port = 443
-     # proptocol ="HTTPS"
-      #status_code = "HTTP_301"
-    #}
-  #}
-  
-#}
+     redirect {
+        port = 443
+      proptocol ="HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+# # Creating Application load balancer
+# resource "aws_lb" "my_load_balancer" {
+#     name = "${var.my-project_name}-alb"
+#        internal = false
+#      load_balancer_type = "application"
+#     security_groups = [var.alb_sg_id]
+#       subnets =[var.public_subnets-1 , var.public-subnets-2 , var.public-subnets-3]
+#     enable_deletion_protection = false
+#     tags = {
+#    name = "${var.my-project_name}-alb"
+#     }
+
+#   }
+
