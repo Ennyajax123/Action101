@@ -1,17 +1,17 @@
 output "frontend1_id" {
-  value = aws_instance.frontend1.id
+  value = aws_instance.frontend-1.id
 }
 
 output "frontend2_id" {
-  value = aws_instance.frontend2.id
+  value = aws_instance.frontend-2.id
 }
 
 output "Backend1_id" {
-  value = aws_instance.Backend1.id
+  value = aws_instance.backend-1.id
 }
 
 output "Backend2_id" {
-  value = aws_instance.Backend2.id
+  value = aws_instance.backend-2.id
 }
 
 output "vpc_id" {
