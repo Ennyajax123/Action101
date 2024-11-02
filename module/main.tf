@@ -105,7 +105,7 @@ resource "aws_instance" "frontend-2" {
 
 # creating the backend system
 resource "aws_security_group" "backend-1-sg" {
-  name = "MProj1-backend-1-sg"
+  name = "ACTION101-backend-1-sg"
   # ... other configuration ...
 
   egress {
@@ -146,7 +146,7 @@ resource "aws_instance" "backend-1" {
 
 # creating the backend system
 resource "aws_security_group" "backend-2-sg" {
-  name = "MProj1-backend-2-sg"
+  name = "ACTION101-backend-2-sg"
   # ... other configuration ...
 
   egress {
