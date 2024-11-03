@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.70.0"
+      version = "5.73.0"
     }
   }
 }
@@ -10,16 +10,16 @@ provider "aws" {
   region = "eu-west-2"
 }
 
- #Create a VPC
- resource "aws_vpc" "my-project-vpc" {
-   cidr_block       = "192.168.0.0/16"
-   instance_tenancy = "default"
+#Create a VPC
+resource "aws_vpc" "my-project-vpc" {
+  cidr_block       = "192.168.0.0/16"
+  instance_tenancy = "default"
 
-   tags = {
-     Name = "main"
-   }
- }
- #creating the frontend system
+  tags = {
+    Name = "main"
+  }
+}
+#creating the frontend system
 
 resource "aws_security_group" "frontend-1-sg" {
   name = "ACTION101-frontend-1-sg"
